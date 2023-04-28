@@ -12,16 +12,25 @@ namespace GestoreEventi
         public DateTime data;
         private int capienzaMax;
         private int postiPrenotati;
-        private int postiDisponibili;
+        private int postiDisponibili = 1000;
 
         // COSTRUTTORE 
 
         public Evento(string titolo,string data, int capienzaMax)
-        {
+        {   
+            if (titolo == "")
+            {
+                throw new ArgumentException("Non hai inserito il titolo dell'evento!");
+            }
+            if (data != "29/05/2023")
+            {
+                throw new ArgumentException("In tale data indicata non sono previsti eventi");
+            }
+
             this.titolo = titolo;
             this.data = DateTime.Parse(data);       
             this.capienzaMax = capienzaMax;
-            Prenota(postiPrenotati);
+            
             
         }
 
@@ -67,7 +76,7 @@ namespace GestoreEventi
                 throw new ArgumentException("Inserire un numero positivo...");
             } else
             {
-                this.capienzaMax = capienzaMax;
+                int nuoviPostiDisponibili = capienzaMax;
             }
         }
 
@@ -76,18 +85,21 @@ namespace GestoreEventi
 
         public void Prenota(int prenotaPosti)
         {
-            int nuoviPostiDispoibili = capienzaMax - prenotaPosti;
-            Console.WriteLine("Hai prenotato: " + prenotaPosti + " posti");
-            Console.WriteLine("Posti disponibili: " + nuoviPostiDispoibili);
-            
+            if(postiPrenotati < 1000)
+            {
+                this.postiPrenotati = postiDisponibili - prenotaPosti;
+            } else
+            {
+                throw new ArgumentException("Non ci sono più posti disponibili per questo evento");
+            }
+            this.postiDisponibili = postiDisponibili - prenotaPosti;
+            Console.Write("Hai prenotato: " + prenotaPosti + " posti \n");
+            Console.WriteLine("Sono rimasti disponibili: " + this.postiDisponibili + " posti");
         }
 
         public void Disdici(int disdiciPosti)
         {   
-            int postiDisponibili = capienzaMax - disdiciPosti;
-            int nuoviPostiPrenotati = capienzaMax - postiDisponibili;
-            Console.WriteLine("Hai disdetto: " + disdiciPosti + " posti");
-            Console.WriteLine("I posti prenotati ora sono: " + nuoviPostiPrenotati);
+            
         }
 
         public override string ToString()
