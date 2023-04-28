@@ -1,7 +1,6 @@
 ﻿// MILESTONE 1
 
 using GestoreEventi;
-using System.Linq.Expressions;
 
 try
 {
@@ -53,3 +52,10 @@ try
 {
     Console.Write(ex.Message);
 }
+
+ProgrammaEventi Comicon = new ProgrammaEventi("Comicon", "24/04/2024");
+ProgrammaEventi GamesWeek = new ProgrammaEventi("Milan Games Week", "26/11/2024");
+Comicon.aggiungiEvento(Comicon);
+
+Console.WriteLine(Comicon);
+Console.Write(GamesWeek);

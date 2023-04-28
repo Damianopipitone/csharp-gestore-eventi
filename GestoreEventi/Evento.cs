@@ -35,6 +35,11 @@ namespace GestoreEventi
             
         }
 
+        public Evento(string titolo)
+        {
+            this.titolo = titolo;
+        }
+
         // GETTERS
 
         public string GetTitolo()
