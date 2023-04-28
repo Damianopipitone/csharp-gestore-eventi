@@ -12,14 +12,15 @@ namespace GestoreEventi
         public DateTime data;
         private int capienzaMax;
         private int postiPrenotati;
+        private int postiDisponibili = 200;
 
         // COSTRUTTORE 
 
-        public Evento(string titolo, int capienzaMax, int postiPrenotati)
+        public Evento(string titolo,DateTime data, int postiDisponibili)
         {
             this.titolo = titolo;
-            this.capienzaMax = capienzaMax;
-            this.postiPrenotati = postiPrenotati;
+            this.data = data;       
+            this.postiDisponibili = postiDisponibili;
         }
 
         // GETTERS
@@ -59,7 +60,7 @@ namespace GestoreEventi
 
         public void SetData(DateTime data)
         {
-            
+            data.ToString("dd/MM/yyyy");
         }
 
         public void SetCapienzaMax(int capienzaMax)
@@ -71,6 +72,25 @@ namespace GestoreEventi
             {
                 this.capienzaMax = capienzaMax;
             }
+        }
+
+        // METODI 
+
+        public void Prenota(int prenotaPosti)
+        {
+            int postiPrenotati = postiDisponibili - prenotaPosti;
+            
+        }
+
+        public void Disdici(int disdiciPosti)
+        {
+            int postiDisdetti = postiDisponibili + disdiciPosti;
+        }
+
+        public override string ToString()
+        {   
+            string rapprString = "\t" + data + " - " + titolo;
+            return rapprString;
         }
     }
 }
