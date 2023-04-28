@@ -11,7 +11,7 @@ namespace GestoreEventi
         public string titolo;
         public DateTime data;
         private int capienzaMax;
-        private int postiPrenotati;
+        private int postiPrenotati = 0;
         private int postiDisponibili = 1000;
 
         // COSTRUTTORE 
@@ -93,6 +93,7 @@ namespace GestoreEventi
                 throw new ArgumentException("Non ci sono più posti disponibili per questo evento");
             }
             this.postiDisponibili = postiDisponibili - prenotaPosti;
+            this.postiPrenotati = prenotaPosti;
             Console.Write("Hai prenotato: " + prenotaPosti + " posti \n");
             Console.WriteLine("Sono rimasti disponibili: " + this.postiDisponibili + " posti");
         }
