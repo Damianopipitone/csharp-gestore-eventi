@@ -10,9 +10,9 @@ namespace GestoreEventi
     {
         public string titolo;
         public DateTime data;
-        private int capienzaMax;
-        private int postiPrenotati = 0;
-        private int postiDisponibili = 1000;
+        private readonly int capienzaMax;
+        private int postiPrenotati;
+        private int postiDisponibili;
 
         // COSTRUTTORE 
 
@@ -30,7 +30,8 @@ namespace GestoreEventi
             this.titolo = titolo;
             this.data = DateTime.Parse(data);       
             this.capienzaMax = capienzaMax;
-            
+            this.postiPrenotati = 0;
+            this.postiDisponibili = 1000;
             
         }
 
@@ -83,30 +84,38 @@ namespace GestoreEventi
        
         // METODI 
 
-        public void Prenota(int prenotaPosti)
+        public void Prenota(int postiDaPrenotare)
         {
-            if(postiPrenotati < 1000)
+            if(postiDaPrenotare > postiDisponibili)
             {
-                this.postiPrenotati = postiDisponibili - prenotaPosti;
-            } else
-            {
-                throw new ArgumentException("Non ci sono più posti disponibili per questo evento");
-            }
-            this.postiDisponibili = postiDisponibili - prenotaPosti;
-            this.postiPrenotati = postiPrenotati + prenotaPosti;
-            Console.Write("Hai prenotato: " + prenotaPosti + " posti \n");
-            Console.WriteLine("Sono rimasti disponibili: " + this.postiDisponibili + " posti");
+                throw new ArgumentException("Non ci sono più posti disponibili per questo evento"); ;
+            } 
+
+            this.postiDisponibili = postiDisponibili - postiDaPrenotare;
+            this.postiPrenotati += postiDaPrenotare;
+            Console.Write("Hai prenotato: " + postiDaPrenotare + " posti \n");
+            Console.WriteLine("Sono rimasti disponibili: " + this.postiDisponibili + " posti\n");
+            
         }
 
         public void Disdici(int disdiciPosti)
         {   
+            if(postiPrenotati < disdiciPosti)
+            {
+                throw new ArgumentException("I posti da disdire sono insufficienti!");
+            }
+
+            this.postiPrenotati -= disdiciPosti;
+            this.postiDisponibili += disdiciPosti;
+            Console.WriteLine("Hai disdetto: " + disdiciPosti + " posti");
+            Console.WriteLine("I posti disponibili ora sono: " + this.postiDisponibili);
             
         }
 
         public override string ToString()
         {   
             string rapprString = "\t" + data.ToString("dd/MM/yyyy") + " - " + this.titolo + "\n";
-            rapprString += "\tPosti disponibili: " + capienzaMax + "\n";
+            rapprString += "\tPosti disponibili: " + this.capienzaMax + "\n";
             rapprString += "\tPosti prenotati: " + postiPrenotati + "\n";
             return rapprString; 
         }
