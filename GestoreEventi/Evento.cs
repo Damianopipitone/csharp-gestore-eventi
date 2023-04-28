@@ -11,8 +11,8 @@ namespace GestoreEventi
         public string titolo;
         public DateTime data;
         private int capienzaMax;
-        private int postiPrenotati = 300;
-        private int postiDisponibili = 700;
+        private int postiPrenotati;
+        private int postiDisponibili;
 
         // COSTRUTTORE 
 
@@ -21,6 +21,8 @@ namespace GestoreEventi
             this.titolo = titolo;
             this.data = DateTime.Parse(data);       
             this.capienzaMax = capienzaMax;
+            Prenota(postiPrenotati);
+            
         }
 
         // GETTERS
@@ -39,12 +41,6 @@ namespace GestoreEventi
         {
             return capienzaMax;
         }
-
-        public int GetPostiPrenotati()
-        {
-            return postiPrenotati;
-        }
-
 
         // SETTERS 
 
@@ -75,26 +71,29 @@ namespace GestoreEventi
             }
         }
 
+       
         // METODI 
 
         public void Prenota(int prenotaPosti)
         {
-            int nuoviPostiPrenotati = postiPrenotati + prenotaPosti;
+            int nuoviPostiDispoibili = capienzaMax - prenotaPosti;
             Console.WriteLine("Hai prenotato: " + prenotaPosti + " posti");
-            Console.WriteLine("Posti prenotati in totale: " + nuoviPostiPrenotati + " posti");
+            Console.WriteLine("Posti disponibili: " + nuoviPostiDispoibili);
+            
         }
 
         public void Disdici(int disdiciPosti)
-        {
-           int nuoviPostiDisponibili = postiDisponibili + disdiciPosti;
+        {   
+            int postiDisponibili = capienzaMax - disdiciPosti;
+            int nuoviPostiPrenotati = capienzaMax - postiDisponibili;
             Console.WriteLine("Hai disdetto: " + disdiciPosti + " posti");
-            Console.WriteLine("Posti disponibili :" + nuoviPostiDisponibili + " posti");
+            Console.WriteLine("I posti prenotati ora sono: " + nuoviPostiPrenotati);
         }
 
         public override string ToString()
         {   
             string rapprString = "\t" + data.ToString("dd/MM/yyyy") + " - " + this.titolo + "\n";
-            rapprString += "\tPosti disponibili: " + postiDisponibili + "\n";
+            rapprString += "\tPosti disponibili: " + capienzaMax + "\n";
             rapprString += "\tPosti prenotati: " + postiPrenotati + "\n";
             return rapprString; 
         }
