@@ -93,7 +93,7 @@ namespace GestoreEventi
                 throw new ArgumentException("Non ci sono più posti disponibili per questo evento");
             }
             this.postiDisponibili = postiDisponibili - prenotaPosti;
-            this.postiPrenotati = prenotaPosti;
+            this.postiPrenotati = postiPrenotati + prenotaPosti;
             Console.Write("Hai prenotato: " + prenotaPosti + " posti \n");
             Console.WriteLine("Sono rimasti disponibili: " + this.postiDisponibili + " posti");
         }
