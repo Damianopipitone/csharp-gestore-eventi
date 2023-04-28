@@ -16,11 +16,11 @@ namespace GestoreEventi
 
         // COSTRUTTORE 
 
-        public Evento(string titolo,string data, int postiDisponibili)
+        public Evento(string titolo,string data, int capienzaMax)
         {
             this.titolo = titolo;
             this.data = DateTime.Parse(data);       
-            this.postiDisponibili = postiDisponibili;
+            this.capienzaMax = capienzaMax;
         }
 
         // GETTERS
@@ -44,6 +44,7 @@ namespace GestoreEventi
         {
             return postiPrenotati;
         }
+
 
         // SETTERS 
 
@@ -78,19 +79,23 @@ namespace GestoreEventi
 
         public void Prenota(int prenotaPosti)
         {
-            int postiAggiunti = postiPrenotati + prenotaPosti;
+            int nuoviPostiPrenotati = postiPrenotati + prenotaPosti;
+            Console.WriteLine("Hai prenotato: " + prenotaPosti + " posti");
+            Console.WriteLine("Posti prenotati in totale: " + nuoviPostiPrenotati + " posti");
         }
 
         public void Disdici(int disdiciPosti)
         {
-           
+           int nuoviPostiDisponibili = postiDisponibili + disdiciPosti;
+            Console.WriteLine("Hai disdetto: " + disdiciPosti + " posti");
+            Console.WriteLine("Posti disponibili :" + nuoviPostiDisponibili + " posti");
         }
 
         public override string ToString()
         {   
-            string rapprString = "\t" + data.ToString("dd/MM/yyyy") + " - " + titolo;
-            rapprString += "\tHai prenotato: " + prenotaPosti + " posti \n";
-            rapprString += "\tHai disdetto: " + disdiciPosti + " posti \n";
+            string rapprString = "\t" + data.ToString("dd/MM/yyyy") + " - " + this.titolo + "\n";
+            rapprString += "\tPosti disponibili: " + postiDisponibili + "\n";
+            rapprString += "\tPosti prenotati: " + postiPrenotati + "\n";
             return rapprString; 
         }
     }
